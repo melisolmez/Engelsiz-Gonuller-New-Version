@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface RegistrationService {
   CreationResult register(@Valid RegistrationServiceRequest request);
-  ResponseEntity<?> confirmEmail(String confirmationToken);
+
 }
