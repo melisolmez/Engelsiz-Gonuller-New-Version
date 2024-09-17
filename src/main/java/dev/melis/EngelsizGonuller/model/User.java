@@ -4,13 +4,16 @@ package dev.melis.EngelsizGonuller.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import lombok.Data;
 
 @Entity
 @Table(name = "user")
+@Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
     private Long userId;
 
     @Column(name="name", nullable = false)
@@ -41,84 +44,12 @@ public class User {
     @Column(name = "usertype",nullable = false)
     private UserType userType;
 
-    public Long getUserId() {
-        return userId;
-    }
+    @Column(name = "enabled")
+    private boolean enabled;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getUserJob() {
-        return job;
-    }
-
-    public void setUserJob(String userJob) {
-        this.job = userJob;
-    }
-
-    public String getAboutUser() {
-        return about;
-    }
-
-    public void setAboutUser(String aboutUser) {
-        this.about = aboutUser;
-    }
-
-    public String getUserPassword() {
-        return password;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.password = userPassword;
-    }
-
-    public LocalDate getDateOfRegistration() {
-        return dateOfRegistration;
-    }
-
-    public void setDateOfRegistration(LocalDate dateOfRegistration) {
-        this.dateOfRegistration = dateOfRegistration;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public User(){
+        super();
+        this.enabled=false;
     }
 
 }
