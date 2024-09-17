@@ -67,9 +67,4 @@ public class RegistrationServiceRequest {
         return this;
     }
 
-    public RegistrationServiceRequest setDateOfRegistration(LocalDate dateOfRegistration){
-        this.dateOfRegistration=dateOfRegistration;
-        return this;
-    }
-
 }
