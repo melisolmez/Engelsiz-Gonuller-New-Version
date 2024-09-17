@@ -36,7 +36,7 @@ public class DefaultRegistrationService implements RegistrationService{
         }
         user.setEmail(request.getEmail());
         user.setDateOfRegistration(LocalDate.now());
-        user.setUserPassword(request.getPassword());
+        user.setPassword(request.getPassword());
         if(request.getUserType()== UserType.VOLUNTEER){
             user.setUserType(UserType.VOLUNTEER);
         }else{
