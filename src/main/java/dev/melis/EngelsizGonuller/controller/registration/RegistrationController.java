@@ -1,4 +1,4 @@
-package dev.melis.EngelsizGonuller.controller;
+package dev.melis.EngelsizGonuller.controller.registration;
 
 import dev.melis.EngelsizGonuller.service.email.VerificationTokenService;
 import dev.melis.EngelsizGonuller.service.registration.RegistrationService;
