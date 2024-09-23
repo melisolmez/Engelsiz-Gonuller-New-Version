@@ -31,7 +31,7 @@ public class VerificationTokenService {
         }
 
         Calendar calendar = Calendar.getInstance();
-        if(verificationToken.get().getExpiryDate().getTime()- calendar.getTime().getTime() <=0){
+        if(verificationToken.get().getExpiryDate().getTime() - calendar.getTime().getTime() <=0){
             return false;
         }
 
