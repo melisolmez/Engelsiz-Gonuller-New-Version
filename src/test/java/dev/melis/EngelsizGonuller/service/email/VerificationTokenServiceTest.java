@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 
+import dev.melis.EngelsizGonuller.model.User;
 import dev.melis.EngelsizGonuller.model.VerificationToken;
 import dev.melis.EngelsizGonuller.repository.UserRepository;
 import dev.melis.EngelsizGonuller.repository.VerificationTokenRepository;
@@ -69,15 +70,21 @@ class VerificationTokenServiceTest {
         String token="123";
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR, 0);
+        calendar.add(Calendar.HOUR, 1);
         Date expiryDate = calendar.getTime();
 
         VerificationToken testToken= new VerificationToken();
         testToken.setToken(token);
         testToken.setExpiryDate(expiryDate);
 
+        User user = new User();
+        user.setEnabled(false);
+        testToken.setUser(user);
+
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(testToken));
         boolean result = verificationTokenService.validateVerificationToken(token);
+
+        assertTrue(user.isEnabled());
         assertTrue(result);
 
     }
