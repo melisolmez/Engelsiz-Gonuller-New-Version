@@ -1,5 +1,7 @@
 package dev.melis.EngelsizGonuller.service.registration;
 
+import dev.melis.EngelsizGonuller.config.JwtService;
+import dev.melis.EngelsizGonuller.model.Role;
 import dev.melis.EngelsizGonuller.model.User;
 import dev.melis.EngelsizGonuller.model.UserType;
 import dev.melis.EngelsizGonuller.model.VerificationToken;
@@ -7,13 +9,12 @@ import dev.melis.EngelsizGonuller.repository.UserRepository;
 import dev.melis.EngelsizGonuller.repository.VerificationTokenRepository;
 import dev.melis.EngelsizGonuller.service.email.EmailService;
 import dev.melis.EngelsizGonuller.service.email.VerificationTokenService;
-import dev.melis.EngelsizGonuller.support.CreationResult;
-import dev.melis.EngelsizGonuller.support.OperationFailureReason;
+import dev.melis.EngelsizGonuller.support.result.CreationResult;
+import dev.melis.EngelsizGonuller.support.result.OperationFailureReason;
 import dev.melis.EngelsizGonuller.support.emialvalidator.EmailValidator;
 import dev.melis.EngelsizGonuller.support.passwordencoder.PasswordEncoderAdaptor;
 import java.util.Calendar;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,14 +27,16 @@ public class DefaultRegistrationService implements RegistrationService{
     private final VerificationTokenService tokenService;
     private final EmailService emailService;
     private final VerificationTokenRepository verificationTokenRepository;
+    private final JwtService jwtService;
 
 
     public DefaultRegistrationService(UserRepository repository, VerificationTokenService tokenService, EmailService emailService,
-        VerificationTokenRepository verificationTokenRepository) {
+                                      VerificationTokenRepository verificationTokenRepository, JwtService jwtService) {
         this.repository = repository;
         this.tokenService = tokenService;
         this.emailService = emailService;
         this.verificationTokenRepository = verificationTokenRepository;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class DefaultRegistrationService implements RegistrationService{
         }else{
             user.setUserType(UserType.DISABLED_INDIVIDUAL);
         }
+        user.setRole(Role.USER);
 
         repository.save(user);
 
@@ -71,6 +75,8 @@ public class DefaultRegistrationService implements RegistrationService{
         verificationToken.setExpiryDate(calendar.getTime());
         verificationTokenRepository.save(verificationToken);
         emailService.sendVerificationEmail(user.getEmail(),token);
+
+        jwtService.generateToken(user);
 
         return CreationResult.success();
     }
