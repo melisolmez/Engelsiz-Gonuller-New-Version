@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import dev.melis.EngelsizGonuller.model.User;
 import dev.melis.EngelsizGonuller.model.UserType;
 import dev.melis.EngelsizGonuller.repository.UserRepository;
-import dev.melis.EngelsizGonuller.support.OperationResult;
+import dev.melis.EngelsizGonuller.support.result.OperationResult;
 import dev.melis.EngelsizGonuller.support.emialvalidator.EmailValidator;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
