@@ -1,4 +1,4 @@
-package dev.melis.EngelsizGonuller.support;
+package dev.melis.EngelsizGonuller.support.result;
 
 public enum OperationFailureReason {
     NOT_FOUND,
